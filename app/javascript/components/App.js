@@ -43,8 +43,22 @@ const Wrapper = styled.div`
   margin: 20px auto;
 `;
 
-function app() {
-  return <div>App</div>;
+function App() {
+  return (
+    <>
+      <Nabvar>
+        <Logo>TODO</Logo>
+        <NavItems>
+          <NavItem>
+            <Link to="/todos">Todos</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/todos/new">Add New Todo</Link>
+          </NavItem>
+        </NavItems>
+      </Nabvar>
+    </>
+  );
 }
 
 export default app;
