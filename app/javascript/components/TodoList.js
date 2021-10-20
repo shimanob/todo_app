@@ -126,6 +126,44 @@ function TodoList() {
         />
         <RemoveAllButton onClick={removeAllTodos}>Remove All</RemoveAllButton>
       </SearchAndButton>
+
+      <div>
+        {todos
+          .filter((val) => {
+            if (searchName === "") {
+              return val;
+            } else if (
+              val.name.toLowerCase().inclides(searchName.toLowerCase())
+            ) {
+              return val;
+            }
+          })
+          .map((val, key) => {
+            return (
+              <Row key={key}>
+                {val.is_completed ? (
+                  <CheckedBox>
+                    <ImCheckboxChecked
+                      onClick={() => uodateIsCompleted(key, val)}
+                    />
+                  </CheckedBox>
+                ) : (
+                  <UncheckedBox>
+                    <ImCheckboxUnchecked
+                      onClick={() => uodateIsCompleted(key, val)}
+                    />
+                  </UncheckedBox>
+                )}
+                <TodoName is_completed={val.is_completed}>{val.name}</TodoName>
+                <Link to={"/todo/" + val.id + "/edit"}>
+                  <EditButton>
+                    <AiFillEdit />
+                  </EditButton>
+                </Link>
+              </Row>
+            );
+          })}
+      </div>
     </>
   );
 }
