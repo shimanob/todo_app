@@ -144,13 +144,13 @@ function TodoList() {
                 {val.is_completed ? (
                   <CheckedBox>
                     <ImCheckboxChecked
-                      onClick={() => uodateIsCompleted(key, val)}
+                      onClick={() => updateIsCompleted(key, val)}
                     />
                   </CheckedBox>
                 ) : (
                   <UncheckedBox>
                     <ImCheckboxUnchecked
-                      onClick={() => uodateIsCompleted(key, val)}
+                      onClick={() => updateIsCompleted(key, val)}
                     />
                   </UncheckedBox>
                 )}
