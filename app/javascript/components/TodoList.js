@@ -133,7 +133,7 @@ function TodoList() {
             if (searchName === "") {
               return val;
             } else if (
-              val.name.toLowerCase().inclides(searchName.toLowerCase())
+              val.name.toLowerCase().includes(searchName.toLowerCase())
             ) {
               return val;
             }
