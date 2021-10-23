@@ -53,16 +53,16 @@ function AddTodo(props) {
 
   const [todo, setTodo] = useState(initialTodoState);
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setTodo({ ...todo, [name]: value });
+  };
+
   const notify = () => {
     toast.success("Todo successfully created!", {
       position: "bottom-center",
       hideProgressBar: true,
     });
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setTodo({ ...todo, [name]: value });
   };
 
   const saveTodo = () => {
@@ -85,7 +85,6 @@ function AddTodo(props) {
         console.log(e);
       });
   };
-
   return (
     <>
       <h1>New Todo</h1>
@@ -94,8 +93,8 @@ function AddTodo(props) {
           type="text"
           required
           value={todo.name}
-          onChange={handleInputChange}
           name="name"
+          onChange={handleInputChange}
         />
         <Button
           onClick={saveTodo}

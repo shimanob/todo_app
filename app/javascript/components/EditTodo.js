@@ -18,7 +18,7 @@ const CurrentStatus = styled.div`
   font-weight: bold;
 `;
 
-const IsCompeletedButton = styled.button`
+const IsCompletedButton = styled.button`
   color: #fff;
   font-weight: 500;
   font-size: 17px;
@@ -30,20 +30,21 @@ const IsCompeletedButton = styled.button`
 `;
 
 const EditButton = styled.button`
-  color: white;
+  color: #fff;
   font-weight: 500;
   font-size: 17px;
   padding: 5px 10px;
   margin: 0 10px;
   background: #0ac620;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
+  cursor: pointer;
 `;
 
 const DeleteButton = styled.button`
   color: #fff;
-  font-size: 17px;
   font-weight: 500;
+  font-size: 17px;
   padding: 5px 10px;
   background: #f54242;
   border: none;
@@ -82,7 +83,6 @@ function EditTodo(props) {
 
   useEffect(() => {
     getTodo(props.match.params.id);
-    console.log(props.match.params.id);
   }, [props.match.params.id]);
 
   const handleInputChange = (event) => {
@@ -104,7 +104,7 @@ function EditTodo(props) {
   const updateTodo = () => {
     axios
       .patch(`/api/v1/todos/${currentTodo.id}`, currentTodo)
-      .then((response) => {
+      .then((resp) => {
         notify();
         props.history.push("/todos");
       })
@@ -119,7 +119,6 @@ function EditTodo(props) {
       axios
         .delete(`/api/v1/todos/${currentTodo.id}`)
         .then((resp) => {
-          console.log(resp.data);
           props.history.push("/todos");
         })
         .catch((e) => {
@@ -127,50 +126,37 @@ function EditTodo(props) {
         });
     }
   };
-
   return (
     <>
       <h1>Editing Todo</h1>
       <div>
         <div>
           <label htmlFor="name">Current Name</label>
-          <InputForName
+          <InputName
             type="text"
-            id="name"
             name="name"
             value={currentTodo.name}
             onChange={handleInputChange}
           />
           <div>
-            <span>CurrentStatus</span>
+            <span>Current Status</span>
             <br />
             <CurrentStatus>
-              {currentTodo.is_completed ? "Completed" : "UnCompleted"}
+              {currentTodo.is_completed ? "Completed" : "Uncompleted"}
             </CurrentStatus>
           </div>
         </div>
-
         {currentTodo.is_completed ? (
-          <IsCompeletedButton
-            className="badge badge-primary mr-2"
-            onClick={() => updateIsCompleted(currentTodo)}
-          >
-            UnCompleted
-          </IsCompeletedButton>
+          <IsCompletedButton onClick={() => updateIsCompleted(currentTodo)}>
+            Uncompleted
+          </IsCompletedButton>
         ) : (
-          <IsCompeletedButton
-            className="badge badge-primary mr-2"
-            onClick={() => updateIsCompleted(currentTodo)}
-          >
+          <IsCompletedButton onClick={() => updateIsCompleted(currentTodo)}>
             Completed
-          </IsCompeletedButton>
+          </IsCompletedButton>
         )}
-        <EditButton type="submit" onClick={updateTodo}>
-          Update
-        </EditButton>
-        <DeleteButton className="badge badge-danger mr-2" onClick={deleteTodo}>
-          Delete
-        </DeleteButton>
+        <EditButton onClick={updateTodo}>Update</EditButton>
+        <DeleteButton onClick={deleteTodo}>Delete</DeleteButton>
       </div>
     </>
   );
